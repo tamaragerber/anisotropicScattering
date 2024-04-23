@@ -41,44 +41,55 @@ HHdist = h5read('20220624_concatenated_combined.h5','/concatenated/HH/distance')
 HHtime = h5read('20220624_concatenated_combined.h5','/concatenated/HH/_time');
 VVtime = h5read('20220624_concatenated_combined.h5','/concatenated/VV/_time');
 
-startx = 2722; % start of circle
-azstart = 196;azend=674;
-startx = startx+azstart-1;
-endx = startx+azend-azstart; % end of circle 
+%startx = 2722; % start of circle
+%azstart1 = 196;azend=674;
+%startx1 = startx+azstart-1;
+startx1 = 3020;
+endx1= 3489;
+
+startx2=2999;
+endx2 = 3019;
+%endx = startx+azend-azstart; % end of circle 
 z = HHtime.*1e6.*168./2;
 
 wgs84 = wgs84Ellipsoid;
-az = azimuth(HHlat(1:end-1),HHlon(1:end-1),HHlat(2:end),HHlon(2:end),wgs84);
-azpos = [az(startx-1)-360;az(startx:endx);az(endx+1)+360];
-azposlin = 0:360;
+az = azimuth(HHlat(1:end-1),HHlon(1:end-1),HHlat(2:end),HHlon(2:end),wgs84)-90;
+negaz = find(az<0);
+az(negaz) = 360+az(negaz);
+
+
+%azpos = [az(startx-1)-360;az(startx:endx);az(endx+1)+360];
+%azpos = [az(startx:endx)];
+azpos = [az(startx1:endx1);az(startx2:endx2)];
+%azposlin = 0:359;
+azposlin = 1:360;
 
 % interpolate radargram 
 HH_chirplin = struct;HH_chirplin.r = [];HH_chirplin.i = [];
 VV_chirplin = struct;VV_chirplin.r = [];VV_chirplin.i = [];
 
-
 for i = 1:length(HHtime)
-  HH_chirplin.r(:,i) = interp1(azpos,HH_chirp.r(startx-1:endx+1,i),azposlin,'linear','extrap');
-  HH_chirplin.i(:,i) = interp1(azpos,HH_chirp.i(startx-1:endx+1,i),azposlin,'linear','extrap');
+  HH_chirplin.r(:,i) = interp1(azpos,[HH_chirp.r(startx1:endx1,i);HH_chirp.r(startx2:endx2,i)],azposlin,'linear','extrap');
+  HH_chirplin.i(:,i) = interp1(azpos,[HH_chirp.i(startx1:endx1,i);HH_chirp.i(startx2:endx2,i)],azposlin,'linear','extrap');
 end
 
 for i = 1:length(VVtime)
-  VV_chirplin.r(:,i) = interp1(azpos,VV_chirp.r(startx-1:endx+1,i),azposlin,'linear','extrap');
-  VV_chirplin.i(:,i) = interp1(azpos,VV_chirp.i(startx-1:endx+1,i),azposlin,'linear','extrap');
+  VV_chirplin.r(:,i) = interp1(azpos,[VV_chirp.r(startx1:endx1,i);VV_chirp.r(startx2:endx2,i)],azposlin,'linear','extrap');
+  VV_chirplin.i(:,i) = interp1(azpos,[VV_chirp.i(startx1:endx1,i);VV_chirp.i(startx2:endx2,i)],azposlin,'linear','extrap');
 end
 
 for i = 1:length(HHtime)
-  HV_chirplin.r(:,i) = interp1(azpos,HV_chirp.r(startx-1:endx+1,i),azposlin,'linear','extrap');
-  HV_chirplin.i(:,i) = interp1(azpos,HV_chirp.i(startx-1:endx+1,i),azposlin,'linear','extrap');
+  HV_chirplin.r(:,i) = interp1(azpos,[HV_chirp.r(startx1:endx1,i);HV_chirp.r(startx2:endx2,i)],azposlin,'linear','extrap');
+  HV_chirplin.i(:,i) = interp1(azpos,[HV_chirp.i(startx1:endx1,i);HV_chirp.i(startx2:endx2,i)],azposlin,'linear','extrap');
 end
 
 for i = 1:length(VVtime)
-  VH_chirplin.r(:,i) = interp1(azpos,VH_chirp.r(startx-1:endx+1,i),azposlin,'linear','extrap');
-  VH_chirplin.i(:,i) = interp1(azpos,VH_chirp.i(startx-1:endx+1,i),azposlin,'linear','extrap');
+  VH_chirplin.r(:,i) = interp1(azpos,[VH_chirp.r(startx1:endx1,i);VH_chirp.r(startx2:endx2,i)],azposlin,'linear','extrap');
+  VH_chirplin.i(:,i) = interp1(azpos,[VH_chirp.i(startx1:endx1,i);VH_chirp.i(startx2:endx2,i)],azposlin,'linear','extrap');
 end
 
-HHdat = 20*log10(sqrt(HH_chirp.r(startx-1:endx+1,:).^2 + HH_chirp.i(startx-1:endx+1,:).^2))';
-VVdat = 20*log10(sqrt(VV_chirp.r(startx-1:endx+1,:).^2 + VV_chirp.i(startx-1:endx+1,:).^2))';
+% HHdat = 20*log10(sqrt(HH_chirp.r(startx-1:endx+1,:).^2 + HH_chirp.i(startx-1:endx+1,:).^2))';
+% VVdat = 20*log10(sqrt(VV_chirp.r(startx-1:endx+1,:).^2 + VV_chirp.i(startx-1:endx+1,:).^2))';
 
 HHdatlin = 20*log10(sqrt(HH_chirplin.r.^2 + HH_chirplin.i.^2))';
 VVdatlin = 20*log10(sqrt(VV_chirplin.r.^2 + VV_chirplin.i.^2))';
@@ -159,8 +170,10 @@ end
 %% calculate synthetic response from hh, hv, vv and vh
 plotcount=0;
 figure()
-for idx=32
+idx=301;
+%for idx=1:10:360
 theta = idx+90;
+%theta = idx;
 plotcount = plotcount+1;
 for N = 1:11310
   Sn =  [shhs(N,idx) svhs(N,idx);shvs(N,idx), svvs(N,idx)] ;
@@ -178,43 +191,50 @@ for N = 1:11310
 end
 
 
-PrParsynt=20*log10(abs(HH));
+thetanew = thetanew+90;
+[A,B]=find(thetanew>360);
+thetanew(B) = thetanew(B)-360;
+[AA,BB] = min(thetanew);
+
+PrParsynt=20*log10(abs([HH(:,BB:end),HH(:,1:BB-1)]));
+%PrParsynt = 20*log10(abs(HH));
 PrParsynt=detrend(PrParsynt','constant')';
 PrParsynt=AverageDepth(PrParsynt,z(1:11310),dzPowerNorm);
 
 
-PrPersynt=20*log10(abs(HV));
+%PrPersynt=20*log10(abs(HV));
+PrPersynt=20*log10(abs([HV(:,BB:end),HV(:,1:BB-1)]));
 PrPersynt=detrend(PrPersynt','constant')';
 PrPersynt=AverageDepth(PrPersynt,z(1:11310),dzPowerNorm);
 
 
-subplot(3,6,plotcount)
-imagesc(xdeg,z(1:11310),PrPersynt) 
+%subplot(6,6,plotcount)
+imagesc(xdeg,z(1:11310),imgaussfilt(PrPersynt,10)) 
 %colorbar()
 caxis([-10 10])
 title(num2str(idx))
 %axis([0 360 0 3000])
-axis([0 360 885 2678])
-end
+% yaxis([0 360 885 2678])
+%end
 colormap((brewermap([],"RdBu")));
 figure()
-imagesc(xdeg,z(1:11310),imgaussfilt(PrPar,1)) 
+imagesc(xdeg,z(1:11310),imgaussfilt(PrParsynt,10)) 
 caxis([-10 10])
 title('dPhh measured')
 axis([0 360 885 2678])
 colormap((brewermap([],"RdBu")));
 
 
-PrPersynt=20*log10(abs(HV));
-PrPersynt=detrend(PrPersynt','constant')';
-PrPersynt=AverageDepth(PrPersynt,z(1:11310),dzPowerNorm);
+%PrPersynt=20*log10(abs(HV));
+%PrPersynt=detrend(PrPersynt','constant')';
+%PrPersynt=AverageDepth(PrPersynt,z(1:11310),dzPowerNorm);
 
 dZ = 0.336;
 DptAvgC = dzPowerNorm; 
 stwnd = DptAvgC/dZ;
-chhvv1s = movsum(HH.*conj(VV),[stwnd],1,'omitnan');
-chhvv2s = sqrt(movsum(abs(HH).^2,[stwnd],1,'omitnan'));
-chhvv3s = sqrt(movsum(abs(VV).^2,[stwnd],1,'omitnan'));
+chhvv1s = movsum([HH(:,BB:end),HH(:,1:BB-1)].*conj([VV(:,BB:end),VV(:,1:BB-1)]),[stwnd],1,'omitnan');
+chhvv2s = sqrt(movsum(abs([HH(:,BB:end),HH(:,1:BB-1)]).^2,[stwnd],1,'omitnan'));
+chhvv3s = sqrt(movsum(abs([VV(:,BB:end),VV(:,1:BB-1)]).^2,[stwnd],1,'omitnan'));
 chhvvs = chhvv1s ./ (chhvv2s .* chhvv3s);
 %chhvvs = conj(chhvvs);
 
@@ -305,10 +325,10 @@ eyi=interp1(zg,eyg,zmod)+Lyi*dei;% .* firnCi;
 % Calculate average on the layer
 ex=(exi(1:Z-1)+exi(2:Z))/2;
 ey=(eyi(1:Z-1)+eyi(2:Z))/2;
-phase0=(phase0i(1:Z-1)+phase0i(2:Z))/2;
+phase0=(phase0i(1:Z-1)+phase0i(2:Z))/2+deg2rad(90);
 % test slight rotation in glacial
 %phase0(1400:end) = pi/4;
-phase0deg = rad2deg(phase0)+32;
+phase0deg = rad2deg(phase0)+32+90;
 
 
 Sx=(Sxi(1:Z-1)+Sxi(2:Z))/2;
@@ -327,11 +347,11 @@ R=zeros(2,2,ne); %Rotation Matrix
 T=zeros(2,2,ne); %transmission matrix
 
 % Set domain
-x = 0.00001:2*pi/(X-1):2*pi;
+x = 0.00001:2*pi/(X):2*pi;
 xdeg = x * 180/pi;
 dx = x(2:end)-x(1:end-1); 
 
-for j=1:359
+for j=1:360
     
     % Establish matrices
     for i=1:ne
@@ -609,8 +629,8 @@ subplot(3,4,6)
 %PrPersynt_az = [PrPersynt(:,360-70:end),PrPersynt(:,1:360-70)];
 PrPersynt_az = PrPersynt;
 imagesc(xdeg,HHtime(1:11310).*1e6,imgaussfilt(PrPersynt_az,10));hold on
-plot(v1,HHtime(1:11310).*1e6,'k.')
-plot(v2,HHtime(1:11310).*1e6,'k.')
+%plot(v1,HHtime(1:11310).*1e6,'k.')
+%plot(v2,HHtime(1:11310).*1e6,'k.')
 yticks([11.71, 17.63, 23.55, 29.47])
 yticklabels([1000, 1500, 2000, 2500])
 %colorbar()
@@ -623,8 +643,8 @@ subplot(3,4,8)
 %phase_ders_az = [phase_ders(:,360-70:end),phase_ders(:,1:360-70)];
 phase_ders_az=phase_ders;
 imagesc(xdeg,HHtime(1:11310).*1e6,phase_ders_az);hold on
-plot(v1,HHtime(1:11310).*1e6,'d','markersize',5,'color',[0,0,0],'markerfacecolor',[0.6,0.6,0.8])
-plot(v2,HHtime(1:11310).*1e6,'s','markersize',5, 'color',[0,0,0],'markerfacecolor',[0.9,0.7,0.2])
+%plot(v1,HHtime(1:11310).*1e6,'d','markersize',5,'color',[0,0,0],'markerfacecolor',[0.6,0.6,0.8])
+%plot(v2,HHtime(1:11310).*1e6,'s','markersize',5, 'color',[0,0,0],'markerfacecolor',[0.9,0.7,0.2])
 yticks([11.71, 17.63, 23.55, 29.47])
 yticklabels([1000, 1500, 2000, 2500])
 
