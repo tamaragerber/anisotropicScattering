@@ -2,6 +2,8 @@
 
 Source code for paper Gerber et al., (2024): *Anisotropic Scattering in Radio-Echo Sounding: Insights from Northeast Greenland*
 
+data files can be found at Zenodo XXX repository. 
+
 ### How to cite:
 
 
@@ -17,13 +19,16 @@ Source code for paper Gerber et al., (2024): *Anisotropic Scattering in Radio-Ec
 * dependencies: 
 * generates Fig. 4 & Fig. 5
 
-**profileFig20220705_new.m**
+**prepareProfiles.m**
 * determining synthetic response at 5km intervals for lines
 * dependencies:
-* generate Fig. xx
+* 
   
-**curveFit_xxx.m**
+**profilesCurveFitting.m**
 * calculate orientation and strength of scattering/birefringence
 * dependencies:
-* generate Fig. xxx
-  
+
+**plotProfileFig.m**
+* 
+* 
+
