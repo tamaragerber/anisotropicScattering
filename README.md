@@ -1,11 +1,8 @@
 # anisotropicScattering
 
-Source code for paper Gerber et al., (2024): *Anisotropic Scattering in Radio-Echo Sounding: Insights from Northeast Greenland*
+Source code for paper Gerber et al., (2024): *Anisotropic Scattering in Radio-Echo Sounding: Insights from Northeast Greenland*, submitted to 'The Cryosphere'
 
-data files can be found at Zenodo XXX repository. 
-
-### How to cite:
-
+Data files will be available at an online repository upon paper publication.
 
 ### script overview
 
