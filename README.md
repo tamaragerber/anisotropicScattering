@@ -9,7 +9,7 @@ data files can be found at Zenodo XXX repository.
 
 ### script overview:
 
-**EgripCOF_model.m**: 
+**`EgripCOF_model.m`** 
 * uses EGRIP eigenvalues from Zeising et al, 2022 (in EGRIP_cAxis.csv) and the fujita model (Fujita et al,. 2006) to simulate azimuthal response at EGRIP
 * dependencies: `fujitaModel.m`, `prepCofInput.m`, `calculatePowerRatio.m`, `computePowerAnomalies.m`, `AverageDepth.m`, `EGRIP_cAxis.csv`
 * generates Fig.3
