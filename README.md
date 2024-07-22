@@ -14,8 +14,8 @@ data files can be found at Zenodo XXX repository.
 * dependencies: `fujitaModel.m`, `prepCofInput.m`, `calculatePowerRatio.m`, `computePowerAnomalies.m`, `AverageDepth.m`, `EGRIP_cAxis.csv`
 * generates Fig.3
 
-**obsSyntModel_comp.m** 
-* comparison between azimuthal response from turning circle, synthesized and Fujita model; plot Fig. 4 and Fig.5
+**`obsSyntModel_comp.m`** 
+* comparison between azimuthal response from turning circle, synthesized and Fujita model; 
 * dependencies: `computePowerAnomalies`, `computePhaseDerivative.m`, `prepCofInput.m`, `calculatePowerRatio.m`, `fujitaModel.m`
 * generates Fig. 4 & Fig. 5
 
