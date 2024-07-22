@@ -13,7 +13,7 @@ Data files will be available at an online repository upon paper publication.
 
 #### Compare the modeled results with turning circle and synthesized response from quad-pol measurement near the turning circle: `obsSyntModel_comp.m` 
 * comparison between azimuthal response from turning circle, synthesized and Fujita model; 
-* dependencies: `computePowerAnomalies`, `computePhaseDerivative.m`, `prepCofInput.m`, `calculatePowerRatio.m`, `fujitaModel.m`
+* dependencies: `computePowerAnomalies`, `computePhaseDerivative.m`, `prepCofInput.m`, `calculatePowerRatio.m`, `fujitaModel.m`, `220624_S_airr_PPP.txt`, `220624_P_airr_PPP.txt`, `20220624_concatenated_combined.h5`
 * generates Fig. 4 & Fig. 5
 
 #### Calculate synthetic azimuthal response in 5km intervals along radar lines 
