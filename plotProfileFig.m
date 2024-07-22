@@ -5,7 +5,7 @@ function plotProfileFig(linenum,mode)
     if mode == 0
         load(['output/curveFit_',num2str(linenum),'_20trace_average.mat']);
     elseif mode == 1
-        load(['output/curveFit_',num2str(linenum),'_20trace_average_highres.mat']);
+        load(['output/curveFit_',num2str(linenum),'_20trace_highres.mat']);
     end
 
     % Create figure
