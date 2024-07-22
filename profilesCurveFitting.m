@@ -104,7 +104,7 @@ function profilesCurveFitting(linenum,mode)
      if mode==0
          Sav.dp = [1095,2286,5262,8238];
      elseif mode==1
-         [~,Sav.dp] = min(abs(Sav.depth-650:20:2550));
+         [~,Sav.dp] = min(abs(Sav.depth-(650:20:2550)));
      end
      %----------------------------------------------------------------------
      maxamp180 = zeros(1,length(Sav.dp));
