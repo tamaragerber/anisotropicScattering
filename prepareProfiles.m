@@ -9,7 +9,7 @@
 
 function prepareProfiles(linenum)
 
-  path2file = 'radarData/';
+  path2file = 'radarData/';                            % adjust path to radar data
 
   files = dir([path2file,num2str(linenum),'_*.h5']);
   numSegments = length(files);
@@ -157,7 +157,7 @@ function prepareProfiles(linenum)
     
     % saving
     % ---------------------------------------------------------------------
-    save(['profiles/profile',num2str(linenum),'_',num2str(fname(9:16)),'_',num2str(2*trav),'trace_average.mat'],'S')
+    save(['output/profile',num2str(linenum),'_',num2str(fname(9:16)),'_',num2str(2*trav),'trace_average.mat'],'S')
   
   end
 end
