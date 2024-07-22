@@ -31,7 +31,7 @@ data files can be found at Zenodo XXX repository.
 * reads .mat files with analysis points and saves fitting parameters in .mat file.
 * dependencies: input files, e.g. `profile20220701__091615__20trace_average.mat`
 
-**plotProfileFig.m**
+**Step 3: `plotProfileFig.m`**
 * plot Fig. 6 and Fig. 7, and Figures in appendix.
 * mode = 0 for plotting the azimuthal response for every other analysis points (e.g. Fig. 6, Fig. 7)
 * mode = 1 for plotting amplitudes and r^2 for high-res curve fitting
