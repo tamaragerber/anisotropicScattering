@@ -25,9 +25,10 @@ data files can be found at Zenodo XXX repository.
 * dependencies: `readRadar.m`, `computePowerAnomalies.m`, `AverageDepth.m`, `computePhaseDerivative.m`
 * reads .h5 radar files and saves synthetic response of analysis points from each line segment as .mat file.
 
-**profilesCurveFitting.m**
-* calculate orientation and strength of scattering/birefringence
+**Step 2: `profilesCurveFitting.m`**
+* calculate orientation and strength of scattering/birefringence vs depth
 * dependencies:
+* reads .mat files with analysis points and saves fitting parameters in .mat file.
 
 **plotProfileFig.m**
 * 
