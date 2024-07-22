@@ -97,8 +97,8 @@ data.VH_chirplin = interpolateRadargram(data.VH_chirp, azpos, azposlin, length(d
 %--------------------------------------------------------------------------
 circle.time = data.HHtime;
 
-save('circle.mat','circle')
-save('data.mat','data')
+save('output/circle.mat','circle')
+save('output/data.mat','data')
 %% 2) Synthesized Response 
 % synthesize azimuthal response from one trace
 %--------------------------------------------------------------------------
@@ -126,7 +126,7 @@ synt = synthesizeResponse(s, theta, idx);
 %--------------------------------------------------------------------------
 synt.time = data.HHtime;
 
-save('synt.mat','synt')
+save('output/synt.mat','synt')
 
 %% 3) Fujita Model with EGRIP COF
 % read cof data
@@ -165,7 +165,7 @@ model.svh = [model.svh(:,end-32:end),model.svh(:,1:end-33)];
 %--------------------------------------------------------------------------
 [model.chhvv, model.phase_der] = computePhaseDerivative(model.shh, model.svv, epsilonAverage, deltaEpsilon, centerFrequency, lightSpeed, dzPowerNorm, dZ);
 
-save('model.mat','model')
+save('output/model.mat','model')
 %% 4) plot Fig. 4
 
 plotFig4(model, synt, circle, xdeg);
