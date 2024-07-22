@@ -27,8 +27,9 @@ data files can be found at Zenodo XXX repository.
 
 **Step 2: `profilesCurveFitting.m`**
 * calculate orientation and strength of scattering/birefringence vs depth
-* dependencies:
+* use mode = 0 for 5 depth intervals, use mode = 1 for high-resolution depth calculation
 * reads .mat files with analysis points and saves fitting parameters in .mat file.
+* dependencies: input files, e.g. `profile20220701__091615__20trace_average.mat`
 
 **plotProfileFig.m**
 * 
