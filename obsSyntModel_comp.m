@@ -183,29 +183,29 @@ function data = readUWBData(filename)
 
     % Reads the UWB data from an HDF5 file
     % ---------------------------------------------------------------------
-    data.HHdatetime = h5read(filename, '/concatenated/HH/datetime')/1000/60/60/24;
-    data.VVdatetime = h5read(filename, '/concatenated/VV/datetime')/1000/60/60/24;
-    data.HH_chirp = h5read(filename, '/concatenated/HH/Chirps');
-    data.VV_chirp = h5read(filename, '/concatenated/VV/Chirps');
-    data.HV_chirp = h5read(filename, '/concatenated/HV/Chirps');
-    data.VH_chirp = h5read(filename, '/concatenated/VH/Chirps');
-    data.HHlat = h5read(filename, '/concatenated/HH/lat');
-    data.HHlon = h5read(filename, '/concatenated/HH/lon');
-    data.VVlat = h5read(filename, '/concatenated/VV/lat');
-    data.VVlon = h5read(filename, '/concatenated/VV/lon');
-    data.VVdist = h5read(filename, '/concatenated/VV/distance');
-    data.HHdist = h5read(filename, '/concatenated/HH/distance');
-    data.HHtime = h5read(filename, '/concatenated/HH/_time');
-    data.VVtime = h5read(filename, '/concatenated/VV/_time');
-    data.HH_gpstime = h5read(filename, '/concatenated/HH/_time');
-    data.VV_gpstime = h5read(filename, '/concatenated/VV/_time');
+    data.HHdatetime = h5read(['input/',filename], '/concatenated/HH/datetime')/1000/60/60/24;
+    data.VVdatetime = h5read(['input/',filename], '/concatenated/VV/datetime')/1000/60/60/24;
+    data.HH_chirp = h5read(['input/',filename], '/concatenated/HH/Chirps');
+    data.VV_chirp = h5read(['input/',filename], '/concatenated/VV/Chirps');
+    data.HV_chirp = h5read(['input/',filename], '/concatenated/HV/Chirps');
+    data.VH_chirp = h5read(['input/',filename], '/concatenated/VH/Chirps');
+    data.HHlat = h5read(['input/',filename], '/concatenated/HH/lat');
+    data.HHlon = h5read(['input/',filename], '/concatenated/HH/lon');
+    data.VVlat = h5read(['input/',filename], '/concatenated/VV/lat');
+    data.VVlon = h5read(['input/',filename], '/concatenated/VV/lon');
+    data.VVdist = h5read(['input/',filename], '/concatenated/VV/distance');
+    data.HHdist = h5read(['input/',filename], '/concatenated/HH/distance');
+    data.HHtime = h5read(['input/',filename], '/concatenated/HH/_time');
+    data.VVtime = h5read(['input/',filename], '/concatenated/VV/_time');
+    data.HH_gpstime = h5read(['input/',filename], '/concatenated/HH/_time');
+    data.VV_gpstime = h5read(['input/',filename], '/concatenated/VV/_time');
     
 end
 
 % read GPS data for turning circle
 % -------------------------------------------------------------------------
 function gps = gpsRead(gpsname)
-   allGps = readmatrix(gpsname,'NumHeaderLines',17);
+   allGps = readmatrix(['input/',gpsname],'NumHeaderLines',17);
    gps.latitude = allGps(:,7);
    gps.longitude = allGps(:,8);
    gps.time = allGps(:,10);
