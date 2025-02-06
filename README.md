@@ -34,3 +34,4 @@ Data files will be available at an online repository upon paper publication.
 * mode = 1 for plotting amplitudes and r^2 for high-res curve fitting
 * dependencies: `saveCSVfile.m`
 
+[![DOI](https://zenodo.org/badge/790589956.svg)](https://doi.org/10.5281/zenodo.14823653)
